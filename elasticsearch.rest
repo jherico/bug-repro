@@ -1,0 +1,29 @@
+###
+GET http://localhost:9200/_cat/indices
+###
+GET http://localhost:9200/test_index/_settings
+###
+PUT http://localhost:9200/test_index/_settings
+Content-Type: application/json
+
+{
+  "index" : {
+    "number_of_replicas" : 1,
+    "refresh_interval" : "5s"
+  }
+}
+
+### Query for items with subscriber ids
+GET http://localhost:9200/test_index/_search?pretty
+Content-Type: application/json
+
+{
+   "query" : {
+       "simple_query_string": {
+           "query": "John"
+       }
+   }
+}
+
+### Delete an index
+DELETE http://localhost:9200/test_index
